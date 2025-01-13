@@ -36,6 +36,7 @@ func main() {
 		os.Exit(1)
 	}
 
+	fmt.Printf("%v\n req",req)
 	resp :=make([]byte,8)
 	binary.BigEndian.PutUint32(resp[0:4],uint32(42))
 	
