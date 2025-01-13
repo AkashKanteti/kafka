@@ -35,7 +35,7 @@ func main() {
 	}
 
 	fmt.Printf("%v",string(b))
-	_,_=conn.Write([]byte("42 7"))
+	_,_=conn.Write([]byte("00 00 00 00\n00 00 00 07"))
 
 	conn.Close()
 
