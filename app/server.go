@@ -37,4 +37,6 @@ func main() {
 	fmt.Printf("%v",string(b))
 	_,_=conn.Write([]byte("message_size:42,correlation_id:7"))
 
+	conn.Close()
+
 }
