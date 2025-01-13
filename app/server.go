@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/binary"
 	"fmt"
 	"net"
 	"os"
@@ -34,8 +35,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("%v",string(b))
-	_,_=conn.Write([]byte("7 7"))
+	resp := make([]byte,8)
+	binary.BigEndian.PutUint32(resp[0:4],uint32(42))
+	binary.BigEndian.PutUint32(resp[4:],uint32(7))
+	_,_=conn.Write(resp)
 
 	conn.Close()
 
