@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/binary"
 	"fmt"
 	"net"
 	"os"
@@ -28,18 +27,22 @@ func main() {
 		os.Exit(1)
 	}
 
-	var b []byte
-	_,err = conn.Read(b)
+	var req []byte
+	_,err = conn.Read(req)
 	if err != nil {
 		fmt.Println("Error accepting connection: ", err.Error())
 		os.Exit(1)
 	}
 
-	resp := make([]byte,8)
-	binary.BigEndian.PutUint32(resp[0:4],uint32(42))
-	binary.BigEndian.PutUint32(resp[4:],uint32(7))
-	_,_=conn.Write(resp)
+	resp :=make([]byte,8)
+	copy(resp[0:4],req[0:4])
+	copy(resp[4:],req[9:])
+
+	_,err=conn.Write(resp)
+	if err != nil {
+		fmt.Println("Error accepting connection: ", err.Error())
+		os.Exit(1)
+	}
 
 	conn.Close()
-
 }
