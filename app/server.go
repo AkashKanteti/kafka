@@ -29,25 +29,25 @@ func main() {
 		os.Exit(1)
 	}
 
-	var req []byte
-	_,err = conn.Read(req)
+	req := make([]byte, 12)
+	_, err = conn.Read(req)
 	if err != nil {
 		fmt.Println("Error accepting connection: ", err.Error())
 		os.Exit(1)
 	}
 
-	fmt.Printf("%v\n req",req)
-	resp :=make([]byte,8)
-	binary.BigEndian.PutUint32(resp[0:4],uint32(42))
-	
-	corr_id,err := strconv.Atoi(string(req[9:]))
+	fmt.Printf("%v\n req", req)
+	resp := make([]byte, 8)
+	binary.BigEndian.PutUint32(resp[0:4], uint32(42))
+
+	corr_id, err := strconv.Atoi(string(req[9:]))
 	if err != nil {
 		fmt.Println("unable to parse correlation id from request", err.Error())
 	}
 
-	binary.BigEndian.PutUint32(resp[0:4],uint32(corr_id))
+	binary.BigEndian.PutUint32(resp[0:4], uint32(corr_id))
 
-	_,err=conn.Write(resp)
+	_, err = conn.Write(resp)
 	if err != nil {
 		fmt.Println("Error accepting connection: ", err.Error())
 		os.Exit(1)
