@@ -40,7 +40,7 @@ func main() {
 	resp := make([]byte, 8)
 
 	binary.BigEndian.PutUint32(resp[0:4], uint32(42))
-	copy(resp[4:], req[9:])
+	copy(resp[4:], req[8:])
 
 	_, err = conn.Write(resp)
 	if err != nil {
