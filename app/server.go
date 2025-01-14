@@ -30,6 +30,7 @@ func main() {
 
 	req := make([]byte, 12)
 	_, err = conn.Read(req)
+	defer conn.Close()
 	if err != nil {
 		fmt.Println("Error accepting connection: ", err.Error())
 		os.Exit(1)
@@ -47,5 +48,5 @@ func main() {
 		os.Exit(1)
 	}
 
-	conn.Close()
+	defer conn.Close()
 }
