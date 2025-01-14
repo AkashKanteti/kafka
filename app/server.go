@@ -27,12 +27,12 @@ func main() {
 		fmt.Println("Error accepting connection: ", err.Error())
 		os.Exit(1)
 	}
+	defer conn.Close()
 
 	req := make([]byte, 12)
 	_, err = conn.Read(req)
-	defer conn.Close()
 	if err != nil {
-		fmt.Println("Error accepting connection: ", err.Error())
+		fmt.Println("Error reading data from connection: ", err.Error())
 		os.Exit(1)
 	}
 
@@ -44,7 +44,7 @@ func main() {
 
 	_, err = conn.Write(resp)
 	if err != nil {
-		fmt.Println("Error accepting connection: ", err.Error())
+		fmt.Println("Error writing data to connection: ", err.Error())
 		os.Exit(1)
 	}
 
