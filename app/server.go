@@ -29,7 +29,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	req := make([]byte, 12)
+	req := make([]byte, 42)
 	_, err = conn.Read(req)
 	if err != nil {
 		fmt.Println("Error reading data from connection: ", err.Error())
@@ -37,10 +37,10 @@ func main() {
 	}
 
 	fmt.Printf("%v\n req", req)
-	resp := make([]byte, 8)
+	resp := make([]byte, 42)
 
 	binary.BigEndian.PutUint32(resp[0:4], uint32(42))
-	copy(resp[4:], req[8:])
+	copy(resp[4:8], req[8:12])
 
 	_, err = conn.Write(resp)
 	if err != nil {
