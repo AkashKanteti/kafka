@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net"
 	"os"
-	"strconv"
 )
 
 // Ensures gofmt doesn't remove the "net" and "os" imports in stage 1 (feel free to remove this!)
@@ -38,14 +37,9 @@ func main() {
 
 	fmt.Printf("%v\n req", req)
 	resp := make([]byte, 8)
+
 	binary.BigEndian.PutUint32(resp[0:4], uint32(42))
-
-	corr_id, err := strconv.Atoi(string(req[9:]))
-	if err != nil {
-		fmt.Println("unable to parse correlation id from request", err.Error())
-	}
-
-	binary.BigEndian.PutUint32(resp[0:4], uint32(corr_id))
+	copy(resp[4:], req[9:])
 
 	_, err = conn.Write(resp)
 	if err != nil {
