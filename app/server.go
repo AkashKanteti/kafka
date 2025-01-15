@@ -37,7 +37,7 @@ func main() {
 	}
 
 	fmt.Printf("%v\n req", req)
-	resp := make([]byte, 42)
+	resp := make([]byte, 12)
 
 	binary.BigEndian.PutUint32(resp[0:4], uint32(42))
 	copy(resp[4:8], req[8:12])
