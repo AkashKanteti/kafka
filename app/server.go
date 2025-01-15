@@ -42,6 +42,7 @@ func main() {
 	binary.BigEndian.PutUint32(resp[0:4], uint32(42))
 	copy(resp[4:8], req[8:12])
 	binary.BigEndian.PutUint16(resp[8:10], uint16(35))
+	binary.BigEndian.PutUint16(resp[8:10], uint16(0))
 
 	_, err = conn.Write(resp)
 	if err != nil {
