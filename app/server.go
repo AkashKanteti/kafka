@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/binary"
 	"fmt"
 	"net"
 	"os"
@@ -36,19 +35,19 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("%v\n req", req)
-	resp := make([]byte, 12)
+	// fmt.Printf("%v\n req", req)
+	// resp := make([]byte, 12)
 
-	binary.BigEndian.PutUint32(resp[0:4], uint32(42))
-	copy(resp[4:8], req[8:12])
-	binary.BigEndian.PutUint16(resp[8:10], uint16(0))
-	// binary.BigEndian.PutUint16(resp[10:12], uint16(0))
+	// binary.BigEndian.PutUint32(resp[0:4], uint32(42))
+	// copy(resp[4:8], req[8:12])
+	// binary.BigEndian.PutUint16(resp[8:10], uint16(0))
+	// // binary.BigEndian.PutUint16(resp[10:12], uint16(0))
 
-	_, err = conn.Write(resp)
-	if err != nil {
-		fmt.Println("Error writing data to connection: ", err.Error())
-		os.Exit(1)
-	}
+	// _, err = conn.Write(resp)
+	// if err != nil {
+	// 	fmt.Println("Error writing data to connection: ", err.Error())
+	// 	os.Exit(1)
+	// }
 
 	defer conn.Close()
 }
