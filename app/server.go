@@ -29,7 +29,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	req := make([]byte, 42)
+	req := make([]byte, 128)
 	_, err = conn.Read(req)
 	if err != nil {
 		fmt.Println("Error reading data from connection: ", err.Error())
