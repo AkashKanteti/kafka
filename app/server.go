@@ -41,7 +41,7 @@ func main() {
 
 	//header
 	// message size
-	binary.BigEndian.PutUint32(resp[0:4], uint32(30))
+	binary.BigEndian.PutUint32(resp[0:4], uint32(17))
 	// correlation id
 	copy(resp[4:8], req[8:12])
 
