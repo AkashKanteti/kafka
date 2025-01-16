@@ -37,7 +37,7 @@ func main() {
 	}
 
 	fmt.Printf("%v\n req", req)
-	resp := make([]byte, 16)
+	resp := make([]byte, 128)
 
 	//header
 	// message size
