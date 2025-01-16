@@ -37,13 +37,14 @@ func main() {
 	}
 
 	fmt.Printf("%v\n req", req)
-	resp := make([]byte, 14)
+	resp := make([]byte, 18)
 
-	binary.BigEndian.PutUint32(resp[0:4], uint32(8))
+	binary.BigEndian.PutUint32(resp[0:4], uint32(12))
 	copy(resp[4:8], req[8:12])
 	binary.BigEndian.PutUint16(resp[8:10], uint16(0))
 	binary.BigEndian.PutUint16(resp[10:12], uint16(18))
 	binary.BigEndian.PutUint16(resp[12:14], uint16(4))
+	binary.BigEndian.PutUint32(resp[14:18], uint32(42))
 
 	_, err = conn.Write(resp)
 	if err != nil {
