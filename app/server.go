@@ -37,7 +37,7 @@ func main() {
 	}
 
 	fmt.Printf("%v\n req", req)
-	resp := make([]byte, 128)
+	resp := make([]byte, 21)
 
 	//header
 	// message size
@@ -54,8 +54,10 @@ func main() {
 	binary.BigEndian.PutUint16(resp[12:14], uint16(0))
 	//max api version
 	copy(resp[14:16], req[6:8])
-
-	// binary.BigEndian.PutUint32(resp[16:20], uint32(42))
+	// tagged fields
+	copy(resp[16:17], req[12:13])
+	//throttle
+	copy(resp[17:21], req[13:17])
 
 	_, err = conn.Write(resp)
 	if err != nil {
