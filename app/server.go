@@ -45,11 +45,11 @@ func main() {
 	binary.BigEndian.PutUint16(resp[10:12], uint16(18))
 	binary.BigEndian.PutUint16(resp[12:14], uint16(4))
 
-	// _, err = conn.Write(resp)
-	// if err != nil {
-	// 	fmt.Println("Error writing data to connection: ", err.Error())
-	// 	os.Exit(1)
-	// }
+	_, err = conn.Write(resp)
+	if err != nil {
+		fmt.Println("Error writing data to connection: ", err.Error())
+		os.Exit(1)
+	}
 	fmt.Printf("%v\n ", resp)
 
 	defer conn.Close()
