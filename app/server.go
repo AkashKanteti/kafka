@@ -48,16 +48,17 @@ func main() {
 	//body
 	//error code
 	binary.BigEndian.PutUint16(resp[8:10], uint16(0))
+	// array length
+	copy(resp[10:11], []byte{2})
+
 	//api key
-	copy(resp[10:12], req[4:6])
+	copy(resp[11:13], req[4:6])
 	//min api version
-	binary.BigEndian.PutUint16(resp[12:14], uint16(0))
+	binary.BigEndian.PutUint16(resp[13:15], uint16(0))
 	//max api version
-	copy(resp[14:16], req[6:8])
-	// tagged fields
-	copy(resp[16:17], req[12:13])
-	//throttle
-	copy(resp[17:21], req[13:17])
+	copy(resp[15:17], req[6:8])
+	//tag buffer
+	copy(resp[17:18], []byte{0})
 
 	_, err = conn.Write(resp)
 	if err != nil {
