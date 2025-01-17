@@ -14,6 +14,11 @@ func main() {
 		os.Exit(1)
 	}
 
+	go acceptConnAndServe(l)
+
+}
+
+func acceptConnAndServe(l net.Listener) {
 	conn, err := l.Accept()
 	if err != nil {
 		fmt.Println("Error accepting connection: ", err.Error())
