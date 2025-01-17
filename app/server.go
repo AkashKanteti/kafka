@@ -14,21 +14,23 @@ func main() {
 		os.Exit(1)
 	}
 
-	go acceptConnAndServe(l)
+	for {
+		conn, err := l.Accept()
+		if err != nil {
+			fmt.Println("Error accepting connection: ", err.Error())
+			os.Exit(1)
+		}
 
+		defer conn.Close()
+
+		go serve(conn)
+	}
 }
 
-func acceptConnAndServe(l net.Listener) {
-	conn, err := l.Accept()
-	if err != nil {
-		fmt.Println("Error accepting connection: ", err.Error())
-		os.Exit(1)
-	}
-
-	defer conn.Close()
+func serve(conn net.Conn) {
 
 	req := make([]byte, 128)
-	_, err = conn.Read(req)
+	_, err := conn.Read(req)
 	if err != nil {
 		fmt.Println("Error reading data from connection: ", err.Error())
 		os.Exit(1)
