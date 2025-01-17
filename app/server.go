@@ -47,7 +47,13 @@ func main() {
 
 	//body
 	//error code
-	binary.BigEndian.PutUint16(resp[8:10], uint16(0))
+	api_version := binary.BigEndian.Uint16(req[6:8])
+	if api_version >= 0 && api_version <= 4 {
+		binary.BigEndian.PutUint16(resp[8:10], uint16(0))
+	} else {
+		binary.BigEndian.PutUint16(resp[8:10], uint16(35))
+	}
+
 	// array length
 	copy(resp[10:11], []byte{2})
 
